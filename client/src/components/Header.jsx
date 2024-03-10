@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Navbar className='border-b-2'>
         <Link to={'/'} className='self-center whitespace-nowrap text-sm sm:text-xl  font-semibold dark:text-white'>
-            <span className='px-2 py-1 rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white'>Shafia's</span>
+            <span className='px-2 py-1 rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white mr-1'>Shafia's</span>
             Blog
             
         </Link>
@@ -27,7 +27,7 @@ const Header = () => {
             <FaMoon/>
         </Button>
         <Link to={'signin'}>
-            <Button gradientDuoTone={'purpleToBlue'}>
+            <Button gradientDuoTone={'purpleToBlue'} outline>
                 Sign In
             </Button>
         </Link>

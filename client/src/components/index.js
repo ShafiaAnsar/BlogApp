@@ -1,2 +1,3 @@
 import Header from "./Header";
-export { Header }
+import FooterComponent from "./Footer";
+export { Header ,FooterComponent}

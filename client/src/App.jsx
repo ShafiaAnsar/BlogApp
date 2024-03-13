@@ -1,5 +1,5 @@
 import Router from "./router"
-import { Header } from "./components"
+import { FooterComponent, Header } from "./components"
 import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,6 +9,7 @@ function App() {
     <ToastContainer />
     <Header/>
     <Router/>
+    <FooterComponent/>
     </>
   )
 }

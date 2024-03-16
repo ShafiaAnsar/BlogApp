@@ -55,15 +55,15 @@ const SignUp = () => {
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <div>
               <Label value='Your Username'/>
-              <TextInput  onChange={handleChange} id='username' type='text' placeholder='Username' />
+              <TextInput className='mt-2'  onChange={handleChange} id='username' type='text' placeholder='Username' />
             </div>
             <div>
               <Label value='Your Email'/>
-              <TextInput onChange={handleChange} id='email' type='email' placeholder='name@gmail.com' />
+              <TextInput className='mt-2' onChange={handleChange} id='email' type='email' placeholder='name@gmail.com' />
             </div>
             <div>
               <Label value='Your Password'/>
-              <TextInput onChange={handleChange} id='password' type='password' placeholder='Password' />
+              <TextInput className='mt-2' onChange={handleChange} id='password' type='password' placeholder='Password' />
             </div>
             <Button gradientDuoTone={'purpleToPink'} type='submit' disabled={loading} >
               {loading ? (

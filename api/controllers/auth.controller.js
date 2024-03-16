@@ -49,7 +49,7 @@ export const signin = async(req,res,next)=>{
         { expiresIn:'1d'} )
     res.status(200).cookie('access_token',token,{
         httpOnly:true
-    }).json({message:"SignIn Success"})
+    }).json({message:"SignIn Success",user:user})
     } 
     catch (error) {
         next(error)

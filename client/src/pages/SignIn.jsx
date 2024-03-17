@@ -3,6 +3,7 @@ import {Button, Label, TextInput,Alert,Spinner} from 'flowbite-react'
 import { useState } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {signInSuccess ,signInFailure,signInStart} from '../redux/user/userSlice'
+import { GoogleAuth } from '../components'
 const SignIn = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -70,6 +71,7 @@ const SignIn = () => {
                   </span></>
               ) : "Sign In"}
             </Button>
+            <GoogleAuth/>
           </form>
           <p className='text-sm mt-5'>Donot  have an account? <Link to={'/signup'} className='text-blue-500'>Sign Up</Link></p>
           {

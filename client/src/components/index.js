@@ -1,3 +1,4 @@
 import Header from "./Header";
 import FooterComponent from "./Footer";
-export { Header ,FooterComponent}
+import GoogleAuth from "./GoogleAuth";
+export { Header ,FooterComponent, GoogleAuth}

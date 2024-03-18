@@ -16,7 +16,7 @@ const DashboardSidebar = () => {
     <Sidebar className="w-full">
         <Sidebar.ItemGroup>
             <Link to={'/dashboard?tab=profile'}>
-                <Sidebar.Item className={'cursor-pointer'} active={tab==='profile'}  icon={HiUser} label={'User'} labelColor="dark" >
+                <Sidebar.Item className={'cursor-pointer'} active={tab==='profile'} as='div'  icon={HiUser} label={'User'} labelColor="dark" >
                     Profile
                 </Sidebar.Item>
           </Link>

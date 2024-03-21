@@ -6,6 +6,7 @@ import { toggleTheme } from '../redux/theme/themeSlice'
 import {useSelector,useDispatch} from 'react-redux'
 const Header = () => {
     const {currentUser} = useSelector((state)=>state.user)
+    console.log(currentUser)
     const dispatch = useDispatch()
     const {theme} = useSelector(state => state.theme)
     const path = useLocation().pathname
@@ -35,12 +36,12 @@ const Header = () => {
         {currentUser ? (
             <Dropdown arrowIcon={false}  inline 
             label={
-                <Avatar img={currentUser?.user.profilePicture} rounded={true} alt='user'/>
+                <Avatar img={currentUser?.profilePicture} rounded={true} alt='user'/>
             }
             >
                 <Dropdown.Header>
-                    <span className='block text-sm'>{currentUser?.user.username}</span>
-                    <span className='block text-sm font-medium truncate'>{currentUser?.user.email}</span>
+                    <span className='block text-sm'>{currentUser?.username}</span>
+                    <span className='block text-sm font-medium truncate'>{currentUser?.email}</span>
                 </Dropdown.Header>
                 <Link to={'/dashboard?tab=profile'}>
                 <Dropdown.Item>

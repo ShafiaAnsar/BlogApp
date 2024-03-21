@@ -16,7 +16,7 @@ export const signup = async (req,res,next)=>{
         }
     )
     const user = User.findOne({email,username})
-    if(user){
+    if(!user){
         next(errorHandler(400,'User already exists'))
     }
     try{

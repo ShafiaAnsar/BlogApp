@@ -7,21 +7,21 @@ import {app} from '../firebase'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { CircularProgressbar } from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css'
-import { Link } from 'react-router-dom';
-import { updateStart,updateSuccess,updateFailure } from "../redux/user/userSlice";
+import { Link,useNavigate } from 'react-router-dom';
+import { updateStart,updateSuccess,updateFailure,deleteUserFailure,deleteUserStart,deleteUserSuccess } from "../redux/user/userSlice";
 const Profile = () => {
   const {currentUser,loading,error} = useSelector(state=>state.user)
+  const navigate = useNavigate()
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
-  const [updateUserError, setUpdateUserError] = useState(null);
+  const [updateUserError, setUpdateUserError,] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
-  const filePickerRef = useRef();
-  console.log(currentUser)
+  const filePickerRef = useRef()
   const dispatch = useDispatch();
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -33,7 +33,6 @@ const Profile = () => {
   const handleChange= (e)=>{
     setFormData({...formData,[e.target.id]:e.target.value})
   }
-  console.log(formData)
   useEffect(() => {
     if (imageFile) {
       uploadImage();
@@ -108,6 +107,27 @@ const Profile = () => {
         dispatch(updateFailure(error.message));
       }
     };
+    const handleDeleteUser = async () => {
+      setShowModal(false);
+      try {
+        dispatch(deleteUserStart())
+        const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          dispatch(deleteUserFailure(data.message));
+        } else {
+          dispatch(deleteUserSuccess(data));
+          navigate('/signin');
+        }
+      } catch (error) {
+        dispatch(deleteUserFailure(error.message));
+      }   
+    }
     return (
       <div className='max-w-lg mx-auto p-3 w-full'>
         <h1 className='my-7 text-center font-semibold text-3xl'>Profile</h1>
@@ -233,7 +253,7 @@ const Profile = () => {
                 Are you sure you want to delete your account?
               </h3>
               <div className='flex justify-center gap-4'>
-                <Button color='failure'>
+                <Button color='failure' onClick={handleDeleteUser}>
                   Yes, I'm sure
                 </Button>
                 <Button color='gray' onClick={() => setShowModal(false)}>

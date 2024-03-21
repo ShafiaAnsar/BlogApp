@@ -10,7 +10,6 @@ const SignUp = () => {
   const handleChange = (e)=>{
   setFormData({...formdata,[e.target.id]:e.target.value.trim()})
   }
-  console.log(formdata)
   const handleSubmit = async (e)=>{
     e.preventDefault()
     if(!formdata.username || !formdata.email || !formdata.password){

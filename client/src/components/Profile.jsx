@@ -8,9 +8,10 @@ import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { CircularProgressbar } from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css'
 import { Link,useNavigate } from 'react-router-dom';
-import { updateStart,updateSuccess,updateFailure,deleteUserFailure,deleteUserStart,deleteUserSuccess } from "../redux/user/userSlice";
+import { updateStart,updateSuccess,updateFailure,deleteUserFailure,deleteUserStart,deleteUserSuccess,signoutSuccess } from "../redux/user/userSlice";
 const Profile = () => {
   const {currentUser,loading,error} = useSelector(state=>state.user)
+  const User = currentUser?.user ? currentUser?.user : currentUser
   const navigate = useNavigate()
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -73,6 +74,21 @@ const Profile = () => {
         }
       );
     };
+    const handleSignout = async ()=>{
+      try {
+        const res = await fetch ('/api/user/signout', {
+          method: 'POST'})
+          const data = await res.json()
+          if(!res.ok){
+            console.log(data.message)
+          }
+          else(
+            dispatch(signoutSuccess())
+          )
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
     const handleSubmit = async (e) => {
       e.preventDefault()
       setUpdateUserError(null)
@@ -87,7 +103,7 @@ const Profile = () => {
       }
       try {
         dispatch(updateStart());
-        const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        const res = await fetch(`/api/user/update/${User._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -111,7 +127,7 @@ const Profile = () => {
       setShowModal(false);
       try {
         dispatch(deleteUserStart())
-        const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        const res = await fetch(`/api/user/delete/${User._id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -165,7 +181,7 @@ const Profile = () => {
               />
             )}
             <img
-              src={imageFileUrl || currentUser?.profilePicture}
+              src={imageFileUrl || User?.profilePicture}
               alt='user'
               className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
                 imageFileUploadProgress &&
@@ -181,14 +197,14 @@ const Profile = () => {
             type='text'
             id='username'
             placeholder='Username'
-            defaultValue={currentUser?.username}
+            defaultValue={User?.username}
            onChange={handleChange}
           />
           <TextInput
             type='email'
             id='email'
             placeholder='Email'
-            defaultValue={currentUser?.email}
+            defaultValue={User?.email}
             onChange={handleChange}
           />
           <TextInput
@@ -220,7 +236,7 @@ const Profile = () => {
           <span onClick={() => setShowModal(true)} className='dark:text-red-500 dark:bg-white  bg-red-500 text-white  rounded-md p-2 cursor-pointer'>
             Delete Account
           </span>
-          <span className='dark:text-red-500 dark:bg-white  bg-red-500 text-white  rounded-md p-2 cursor-pointer'>
+          <span onClick={handleSignout} className='dark:text-red-500 dark:bg-white  bg-red-500 text-white  rounded-md p-2 cursor-pointer'>
             Sign Out
           </span>
         </div>

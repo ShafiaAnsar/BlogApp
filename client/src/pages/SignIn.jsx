@@ -12,7 +12,6 @@ const SignIn = () => {
   const handleChange = (e)=>{
   setFormData({...formdata,[e.target.id]:e.target.value.trim()})
   }
-  console.log(formdata)
   const handleSubmit = async (e)=>{
     e.preventDefault()
     if(!formdata.username || !formdata.email || !formdata.password){
@@ -28,9 +27,11 @@ const SignIn = () => {
       const data = await response.json()
       if(data.success === false){
         dispatch(signInFailure(data.message))
+        console.log(data.message)
       }
       if(response.ok){
         dispatch(signInSuccess(data))
+        console.log(data)
         navigate('/')
       }
     }

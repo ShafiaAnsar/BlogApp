@@ -217,15 +217,17 @@ const Profile = () => {
             type='submit'
             gradientDuoTone='purpleToBlue'
             outline
+            disabled={loading || imageFileUploadProgress > 0}
           >
             {loading ? 'Loading...' : 'Update'}
           </Button>
-          {currentUser.isAdmin && (
+          {User?.isAdmin && (
             <Link to={'/create-post'}>
               <Button
                 type='button'
                 gradientDuoTone='purpleToPink'
                 className='w-full'
+               
               >
                 Create a post
               </Button>

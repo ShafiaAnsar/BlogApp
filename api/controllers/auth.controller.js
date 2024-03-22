@@ -44,7 +44,7 @@ export const signin = async(req,res,next)=>{
        return next(errorHandler(400,'Wrong credentials'))
     }
     const token = jwt.sign(
-        {id:user._id},
+        {id:user._id, isAdmin:user.isAdmin},
         process.env.JWT_SECRET,
         { expiresIn:'1d'} )
     res.status(200).cookie('access_token',token,{
@@ -62,7 +62,7 @@ export const google = async(req,res,next)=>{
         const user = await User.findOne({email: email})
 
         if(user){
-            const token = jwt.sign({id:user._id},process.env.JWT_SECRET)
+            const token = jwt.sign({id:user._id, isAdmin:user.isAdmin},process.env.JWT_SECRET)
             const {password,...rest}= user._doc
             res.status(200).cookie('access_token',token,{
                 httpOnly:true
@@ -72,14 +72,14 @@ export const google = async(req,res,next)=>{
             const generatepassword = Math.random().toString(36).slice(-8)
             const hashedPassword = bcryptjs.hashSync(generatepassword,10)
 
-            let user = new User({
+            const user = new User({
                 username:name.toLowerCase().split(' ').join('')+ Math.random().toString(9).slice(-4),
                 email,
                 profilePicture:photoUrl,
                 password:hashedPassword
             })
             await user.save()
-            const token = jwt.sign({id:user._id},process.env.JWT_SECRET)
+            const token = jwt.sign({id:user._id,isAdmin:user.isAdmin},process.env.JWT_SECRET)
             const {password,...rest}= user._doc
             res.status(200).cookie('access_token',token,{
                 httpOnly:true

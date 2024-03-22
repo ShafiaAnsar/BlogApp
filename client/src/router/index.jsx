@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
-import {Home, About, Projects, SignUp, SignIn, Dashboard} from '../pages'
-import { PrivateRoute } from "../components"
+import {Home, About, Projects, SignUp, SignIn, Dashboard, CreatePost} from '../pages'
+import { AdminRoute, PrivateRoute } from "../components"
 const Router = () => {
   return (
     <Routes>
@@ -11,6 +11,9 @@ const Router = () => {
       <Route path="/signin" element={<SignIn/>}/>
       <Route element={<PrivateRoute/>}>
       <Route path="/dashboard" element={<Dashboard/>}/>
+      </Route>
+      <Route element={<AdminRoute/>}>
+        <Route path="/create-post" element={<CreatePost/>}/>
       </Route>
     </Routes>
   )

@@ -5,5 +5,6 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardSidebar from './DashboardSidebar'
 import Profile from "./Profile";
 import AdminRoute from "./AdminRoute";
-export { Header, DashboardSidebar,Profile,FooterComponent, GoogleAuth,PrivateRoute,
+import Posts from "./Posts";
+export { Header, DashboardSidebar,Profile,FooterComponent, GoogleAuth,PrivateRoute,Posts,
 AdminRoute}

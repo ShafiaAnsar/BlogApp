@@ -96,7 +96,7 @@ const CreatePost = () => {
                 {
                     imageUploadProgress ? (
                         <div className="w-16 h-16">
-                        <CircularProgressbar value={imageUploadProgress} maxValue={100} text={`${imageUploadProgress}% || 0`} />
+                        <CircularProgressbar value={imageUploadProgress} maxValue={100} text={`${imageUploadProgress}% `|| 0} />
                         </div>
                     ):(
                         'Upload Image'

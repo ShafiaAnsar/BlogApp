@@ -1,6 +1,6 @@
  import { useEffect, useState } from 'react'
 import {useLocation} from 'react-router-dom'
-import {DashboardSidebar,Profile} from '../components'
+import {DashboardSidebar,Profile,Posts} from '../components'
 const Dashboard = () => {
   const location = useLocation()
   const [tab,setTab] = useState('')
@@ -20,7 +20,10 @@ const Dashboard = () => {
       {/* Content */}
       <div className="md:w-3/4">
         {
-          tab === 'profile' ? <Profile/> : <div>Dashboard</div>
+          tab === 'profile' && <Profile/> 
+        }
+        {
+          tab === 'posts' && <Posts/> 
         }
       </div>
     </div>

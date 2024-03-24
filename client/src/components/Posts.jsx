@@ -3,20 +3,24 @@ import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import {Button, Modal, Table} from 'flowbite-react'
+import {toast} from 'react-toastify'
 const Posts = () => {
   const [showMore,setShowMore] = useState(true)
   const {currentUser} = useSelector((state)=>state.user)
   const User = currentUser?.user ? currentUser?.user : currentUser
   const [userPosts, setUserPosts] = useState([]);
+  const [loading,setLoading]= useState(false)
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState('');
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true)
       try {
         const res = await fetch(`/api/post/getposts?userId=${User._id}`);
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
+          setLoading(false)
           if (data.posts.length < 9) {
             setShowMore(false);
           }
@@ -54,13 +58,14 @@ const Posts = () => {
       const res = await fetch(
         `/api/post/deletepost/${postIdToDelete}/${User._id}`,
         {
-          method: 'DELETE',
+          method: 'DELETE',  
         }
       );
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
       } else {
+        toast.success('Post deleted successfully');
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
         );
@@ -71,7 +76,10 @@ const Posts = () => {
   };
 
   return (
+    <>
+    {loading ? <p className="w-full text-center text-[20px] font-[500]">Loading...</p>:
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+
       {User.isAdmin && userPosts.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
@@ -142,8 +150,9 @@ const Posts = () => {
           )}
         </>
       ) : (
-        <p>You have no posts yet!</p>
+        <p>No posts yet</p>
       )}
+      
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
@@ -169,6 +178,8 @@ const Posts = () => {
         </Modal.Body>
       </Modal>
     </div>
+     }
+    </>
   );
 }
 

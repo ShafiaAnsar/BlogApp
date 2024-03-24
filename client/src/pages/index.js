@@ -5,4 +5,5 @@ import Projects from './Projects'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import CreatePost from './CreatePost'
-export { About, Dashboard, Home, Projects, SignIn, SignUp ,CreatePost}
+import UpdatePost from './UpdatePost'
+export { About, Dashboard, Home, UpdatePost,Projects, SignIn, SignUp ,CreatePost}

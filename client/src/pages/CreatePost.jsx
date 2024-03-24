@@ -37,7 +37,7 @@ const CreatePost = () => {
             },
             ()=>{
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
-                    setFormData({...formData,coverImage:downloadURL})
+                    setFormData({...formData,image:downloadURL})
 
                     setImageUploadError(null)
                     setImageUploadProgress(null)
@@ -108,8 +108,8 @@ const CreatePost = () => {
                 imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>
             }
             {
-                formData?.coverImage && (
-                    <img src={formData.coverImage }
+                formData?.image && (
+                    <img src={formData.image }
                     alt="upload"
                     className="w-full h-72 object-cover"
                     />

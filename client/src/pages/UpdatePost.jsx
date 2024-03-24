@@ -8,8 +8,10 @@ import {CircularProgressbar } from "react-circular-progressbar"
 import 'react-circular-progressbar/dist/styles.css'
 import { useNavigate ,useParams} from "react-router-dom"
 import { useEffect } from "react"
+import {useSelector} from 'react-redux'
 const UpdatePost = () => {
-
+    const {currentUser} = useSelector((state)=>state.user)
+    const User = currentUser?.user ? currentUser?.user : currentUser
     const navigate = useNavigate()
     const [formData,setFormData] = useState({})
     const [file,setFile] = useState(null)
@@ -75,8 +77,8 @@ const UpdatePost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await fetch ('/api/post/create',{
-                method: 'POST',
+            const res = await fetch (`/api/post/updatepost/${formData._id}/${User._id}`,{
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -138,7 +140,7 @@ const UpdatePost = () => {
                 )
             }
             <ReactQuill theme="snow" value={formData.content} placeholder="Write something..." onChange={(value)=> setFormData({...formData, content:value})} required className="h-72 mb-12" />
-            <Button type="submit" gradientDuoTone={'purpleToPink'}>Update</Button>
+            <Button type="submit" disabled={imageUploadProgress } gradientDuoTone={'purpleToPink'}>Update</Button>
             {
                 publishError && <Alert className="mt-5" color='failure'>{publishError}</Alert>
             }

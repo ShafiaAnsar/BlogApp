@@ -6,4 +6,6 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import CreatePost from './CreatePost'
 import UpdatePost from './UpdatePost'
-export { About, Dashboard, Home, UpdatePost,Projects, SignIn, SignUp ,CreatePost}
+import PostPage from './PostPage'
+export { About, Dashboard, Home, 
+    PostPage,UpdatePost,Projects, SignIn, SignUp ,CreatePost}

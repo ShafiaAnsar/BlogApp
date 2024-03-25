@@ -45,6 +45,14 @@ const PostPage = () => {
       <Link to={`/search?category=${post && post.category}`} className='self-center mt-5'>
       <Button color={'gray'} pill size={'xs'}  className=''>{post && post.category}</Button>
       </Link>
+      <img src={post && post.image} alt="post" className='mt-10 p-3 max-h-[500px] w-full object-cover' />
+      <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
+        <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
+        <span className='italic'>{post && (post.content.length/1000).toFixed(0)} mins read</span>
+      </div>
+      <div  dangerouslySetInnerHTML={{__html:post && post.content}} className="p-3 max-w-2xl mx-auto w-full post-content">
+
+      </div>
     </main>
   )
 }

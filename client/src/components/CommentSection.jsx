@@ -1,33 +1,60 @@
 import PropTypes from 'prop-types'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {Button, Textarea} from 'flowbite-react'
-import { useState } from 'react'
+import {Alert, Button, Textarea} from 'flowbite-react'
+import { useEffect, useState } from 'react'
+import Comment from './Comment'
 const CommentSection = ({postId}) => {
     const [comment,setComment] = useState('')
+    const [postComments,setPostComments] = useState([])
+    const [error,setError] = useState(null)
     const {currentUser} = useSelector((state)=>state.user)
     const User = currentUser?.user ? currentUser?.user : currentUser
+    useEffect(() => {
+        const getComments = async () => {
+          try {
+            const res = await fetch(`/api/comment/getPostComment/${postId}`);
+            if (res.ok) {
+              const data = await res.json();
+              setPostComments(data);
+            }
+          } catch (error) {
+            console.log(error.message);
+          }
+        };
+        getComments();
+      }, [postId]);
     const handleSubmit = async (e) =>{
         e.preventDefault()
         if(comment.length > 200){
             return
         }
-        const res = await fetch('api/comment/create',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                content:comment,
-                postId, 
-                userId:User._id
+        try {
+            const res = await fetch('/api/comment/create',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    content:comment,
+                    postId, 
+                    userId:User._id
+                })
             })
-        })
-        const data = await res.json()
-        if(res.ok){
-            setComment('')
+            const data = await res.json()
+            console.log(data)
+            if(res.ok){
+                setComment('')
+                setError(null)
+                setPostComments([data,...postComments])
+            }
+
+        } catch (error) {
+            setError(error.message)
         }
+        
     }
+    console.log(postComments)
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
         { User ? (
@@ -55,7 +82,35 @@ const CommentSection = ({postId}) => {
                             Submit
                         </Button>
                     </div>
+                    { error && 
+                        <Alert color={'failure'} className='mt-5'>
+                        {error}
+                        </Alert>
+                    }
+                   
                 </form>
+            
+            )
+        }
+        {
+            postComments.length === 0 ?(
+                <p className='text-gray-500 text-sm mt-5'>No comments yet! </p>
+            ):(
+                <>
+                <div className="text-sm flex items-center gap-2 my-5">
+                    <p>Comments</p>
+                    <div className="border border-gray-400 py-1 px-2 rounded-sm ">
+                        <p>{postComments.length}</p>
+                    </div>
+                </div>
+               { postComments.map((comment) => {
+                    return(
+                    <Comment key={comment._id} comment={comment}/>)
+                })
+                
+                }
+                </>
+
             )
         }
     </div>

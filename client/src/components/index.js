@@ -9,6 +9,8 @@ import Posts from "./Posts";
 import Users from "./Users";
 import CommentSection from "./CommentSection";
 import CalltoAction from './CalltoAction'
+import DashComments from "./DashComments";
 export { Header, DashboardSidebar,Profile,FooterComponent, GoogleAuth,Users,PrivateRoute,Posts,
+    DashComments,
     CommentSection,CalltoAction,
 AdminRoute}

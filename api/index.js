@@ -16,6 +16,12 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
 const app = express()
 app.use(express.json())
 const port = 3000
+app.use(cors(
+    {
+        origin:["https://blog-app-frontend-alpha.vercel.app"],
+        credentials:true
+    }
+))
 app.listen (port, () => {
     console.log(`Server running on port ${port}`)
 })

@@ -117,7 +117,7 @@ export default function Search() {
               <option value='asc'>Oldest</option>
             </Select>
           </div>
-          <div className='flex sm:flex-row flex-col items-start gap-4'>
+          <div className='flex sm:flex-row flex-col items-start gap-2'>
             <label className='font-semibold'>Category:</label>
             <Select
               onChange={handleChange}

@@ -15,20 +15,9 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
 })
 const app = express()
 app.use(express.json())
-app.use(cookieParser())
-app.use(cors({
-    origin:'http://localhost:3000',
-    credentials:true,
-    methods:'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue:false,
-    optionsSuccessStatus:204,
-}))
 const port = 3000
 app.listen (port, () => {
     console.log(`Server running on port ${port}`)
-})
-app.get('/',(req,res)=>{
-    res.json({message:'Hello World'})
 })
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)

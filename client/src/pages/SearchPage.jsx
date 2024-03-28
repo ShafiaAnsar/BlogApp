@@ -14,11 +14,8 @@ export default function Search() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
-
   const location = useLocation();
-
   const navigate = useNavigate();
-
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
@@ -53,7 +50,7 @@ export default function Search() {
       }
     };
     fetchPosts();
-  }, [location.search,sidebarData]);
+  }, [location.search]);
 
   const handleChange = (e) => {
     if (e.target.id === 'searchTerm') {
@@ -68,7 +65,6 @@ export default function Search() {
       setSidebarData({ ...sidebarData, category });
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
@@ -78,7 +74,6 @@ export default function Search() {
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
-
   const handleShowMore = async () => {
     const numberOfPosts = posts.length;
     const startIndex = numberOfPosts;
@@ -99,7 +94,6 @@ export default function Search() {
       }
     }
   };
-
   return (
     <div className='flex flex-col md:flex-row'>
       <div className='p-7 border-b md:border-r md:min-h-screen border-gray-500'>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
-export default function PostCard({ post }) {
+const PostCard=({ post })=> {
   return (
     <div className='group relative w-full border border-teal-500 hover:border-2 h-[400px] overflow-hidden rounded-lg sm:w-[430px] transition-all'>
       <Link to={`/post/${post.slug}`}>
@@ -27,3 +27,4 @@ export default function PostCard({ post }) {
 PostCard.propTypes = {
   post: PropTypes.object
 }
+export default PostCard

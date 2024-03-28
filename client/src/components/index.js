@@ -10,8 +10,10 @@ import Users from "./Users";
 import CommentSection from "./CommentSection";
 import CalltoAction from './CalltoAction'
 import DashComments from "./DashComments";
+import PostCard from "./PostCard";
 import DashboardComponent from "./DashboardComponent";
-export { Header, DashboardSidebar,Profile,FooterComponent, GoogleAuth,Users,PrivateRoute,Posts,
+export { Header, DashboardSidebar,
+    PostCard,Profile,FooterComponent, GoogleAuth,Users,PrivateRoute,Posts,
     DashboardComponent,
     DashComments,
     CommentSection,CalltoAction,

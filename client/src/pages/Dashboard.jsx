@@ -1,6 +1,6 @@
  import { useEffect, useState } from 'react'
 import {useLocation} from 'react-router-dom'
-import {DashboardSidebar,Profile,Posts,Users, DashComments} from '../components'
+import {DashboardSidebar,Profile,Posts,Users, DashComments, DashboardComponent} from '../components'
 const Dashboard = () => {
   const location = useLocation()
   const [tab,setTab] = useState('')
@@ -30,6 +30,9 @@ const Dashboard = () => {
         }
         {
           tab === 'comments' && <DashComments/> 
+        }
+        {
+          tab === 'dash' && <DashboardComponent/> 
         }
       </div>
     </div>

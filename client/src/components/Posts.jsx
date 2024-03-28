@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import {Button, Modal, Table} from 'flowbite-react'
+import {Button, Modal, Spinner, Table} from 'flowbite-react'
 import {toast} from 'react-toastify'
 const Posts = () => {
   const [showMore,setShowMore] = useState(true)
@@ -74,10 +74,14 @@ const Posts = () => {
       console.log(error.message);
     }
   };
-
+  if(loading) {
+    return(
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner size='xl'/>
+      </div>
+      )
+  }
   return (
-    <>
-    {loading ? <p className="w-full text-center text-[20px] font-[500]">Loading...</p>:
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
 
       {User.isAdmin && userPosts.length > 0 ? (
@@ -168,7 +172,7 @@ const Posts = () => {
             </h3>
             <div className='flex justify-center gap-4'>
               <Button color='failure' onClick={handleDeletePost}>
-                Yes, I'm sure
+                Yes, I am sure
               </Button>
               <Button color='gray' onClick={() => setShowModal(false)}>
                 No, cancel
@@ -178,8 +182,6 @@ const Posts = () => {
         </Modal.Body>
       </Modal>
     </div>
-     }
-    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import { Sidebar } from "flowbite-react"
 import { useEffect, useState } from "react"
-import {HiAnnotation, HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiUser} from 'react-icons/hi'
+import {HiAnnotation, HiArrowSmRight, HiChartPie, HiDocumentText, HiOutlineUserGroup, HiUser} from 'react-icons/hi'
 import { Link, useLocation } from "react-router-dom"
 import { signoutSuccess } from "../redux/user/userSlice"
 import { useDispatch, useSelector } from "react-redux"
@@ -35,7 +35,16 @@ const DashboardSidebar = () => {
   return (
     <Sidebar className="w-full">
         <Sidebar.ItemGroup>
-            <Link to={'/dashboard?tab=profile'}>
+          {
+            User.isAdmin && (
+                <Link to={'/dashboard?tab=dash'}>
+                      <Sidebar.Item className={'cursor-pointer mt-2'} active={tab==='dash' || !tab} as='div'  icon={HiChartPie}  >
+                          Dashboard
+                      </Sidebar.Item>
+                </Link>
+            )
+          }
+          <Link to={'/dashboard?tab=profile'}>
                 <Sidebar.Item className={'cursor-pointer'} active={tab==='profile'} as='div'  icon={HiUser} label={User.isAdmin ? 'Admin' : 'User'} labelColor="dark" >
                     Profile
                 </Sidebar.Item>

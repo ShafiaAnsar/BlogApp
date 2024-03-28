@@ -197,7 +197,8 @@ const DashboardComponent = () => {
             <Link to={'/dashboard?tab=posts'}>See all</Link>
           </Button>
         </div>
-        <Table hoverable>
+        <div className='overflow-auto'> 
+        <Table  hoverable>
           <Table.Head>
             <Table.HeadCell>Post image</Table.HeadCell>
             <Table.HeadCell>Post Title</Table.HeadCell>
@@ -220,6 +221,7 @@ const DashboardComponent = () => {
               </Table.Body>
             ))}
         </Table>
+        </div>
       </div>
     </div>
   </div>

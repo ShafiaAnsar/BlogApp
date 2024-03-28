@@ -27,6 +27,9 @@ const port = 3000
 app.listen (port, () => {
     console.log(`Server running on port ${port}`)
 })
+app.get('/',(req,res)=>{
+    res.json({message:'Hello World'})
+})
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)
 app.use('/api/post',postRoutes)
